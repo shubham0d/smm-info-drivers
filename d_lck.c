@@ -26,10 +26,7 @@ static int my_init(void)
 	printk(KERN_INFO "SMRAMC data recieved is 0x%x.\n", pci_data);
 	
 	
-	// Getting the PIC device BAR limit
-	//pci_write_config_dword(dev, 0x10, 0xFFFFFFFF);
-	//pci_write_config_dword(dev, 0x10, 0xc361c004);
-	D_LCK bit is 4
+	// D_LCK bit is 4
 	pci_data = pci_data >> 4;
 	//for d_open flag
 	//pci_data = pci_data >> 6;
@@ -55,4 +52,4 @@ module_exit(my_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Shubham Dubey <shubham0d@protonmail.coms>");
-MODULE_DESCRIPTION("PCI config MMIO driver");
+MODULE_DESCRIPTION("D_LCK bit check");

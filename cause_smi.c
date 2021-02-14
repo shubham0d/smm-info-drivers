@@ -22,21 +22,19 @@ static int my_init(void)
     // check smi count
     rdmsrl(MSR_SMI_COUNT, smi_count);
     printk(KERN_INFO "SMI count earlier is %x.\n", smi_count);
-    //check the initial value recieve from 0xB3 port
+    //check the initial value recieve from 0xB2 port
 	smm_response = inb(0xb2);
 	
 	printk(KERN_INFO "data recieved from port 0xb2 is %x.\n", smm_response);
-	//write to 0xB2 port to cause SMI
+	//write data to 0xB2 port to cause SMI
 	outb(0x80, 0xb2);
-	// Check the respose in port 0xB3
+	// Check the respose in port 0xB2
 	smm_response = inb(0xb2);
 	
 	printk(KERN_INFO "data recieved after is %x.\n", smm_response);
 	
-	//smi_count = x86_get_msr(0x34);
-	//smi_count = __rdmsr1(0x34);
 	rdmsrl(MSR_SMI_COUNT, smi_count);
-    printk(KERN_INFO "SMI count later is- %x.\n", smi_count);
+    printk(KERN_INFO "SMI count later is %x.\n", smi_count);
     
     return  0;
 }
