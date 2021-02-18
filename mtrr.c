@@ -68,4 +68,4 @@ module_exit(my_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Shubham Dubey <shubham0d@protonmail.coms>");
-MODULE_DESCRIPTION("SMM interaction");
+MODULE_DESCRIPTION("Get MTRR details");

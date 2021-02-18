@@ -52,4 +52,4 @@ module_exit(my_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Shubham Dubey <shubham0d@protonmail.coms>");
-MODULE_DESCRIPTION("PCI config MMIO driver");
+MODULE_DESCRIPTION("TSEGMB register details");
