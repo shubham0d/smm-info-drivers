@@ -10,6 +10,8 @@ static int my_init(void)
 {
 	struct pci_dev *dev;
 	u32 pci_data;
+	u32 stolen_data;
+	u32 tseg_size;
     printk(KERN_INFO "Hello world.\n");
     //get pci device
     dev = pci_get_device(0x8086, 0x0a04, NULL);
@@ -23,15 +25,17 @@ static int my_init(void)
 	//read dword value from pci deevice
 	
 	pci_read_config_dword(dev, 0xb8, &pci_data);
-	printk(KERN_INFO "TSEGMB data recieved is 0x%x.\n", pci_data);
+	printk(KERN_INFO "TSEGMB register data recieved is 0x%x.\n", pci_data);
+	printk(KERN_INFO "TSEGMB is set to 0x%x.\n", (pci_data >> 1) << 1);
 	
 	
-	// Getting the PIC device BAR limit
-	//pci_write_config_dword(dev, 0x10, 0xFFFFFFFF);
-	//pci_write_config_dword(dev, 0x10, 0xc361c004);
-	//pci_data = pci_data >> 3;
-	//pci_data = pci_data & 0x1;
-	//printk(KERN_INFO "G_SMRAME is set to %x.\n", pci_data);
+	//check base of GTT stolen memory
+	pci_read_config_dword(dev, 0xb4, &stolen_data);
+	printk(KERN_INFO "BGSM register data recieved is 0x%x.\n", stolen_data);
+	printk(KERN_INFO "BGSM is set to 0x%x.\n", (stolen_data >> 1) << 1);
+	
+	tseg_size = ((stolen_data >> 1) << 1) - ((pci_data >> 1) << 1);
+	printk(KERN_INFO "TSEG size is 0x%x.\n", tseg_size);
 
 	//cleanup after use
 	pci_dev_put(dev);
@@ -52,4 +56,4 @@ module_exit(my_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Shubham Dubey <shubham0d@protonmail.coms>");
-MODULE_DESCRIPTION("TSEGMB register details");
+MODULE_DESCRIPTION("Get TSEG base address and size");
