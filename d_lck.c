@@ -25,13 +25,13 @@ static int my_init(void)
 	pci_read_config_byte(dev, 0x88, &pci_data);
 	printk(KERN_INFO "SMRAMC data recieved is 0x%x.\n", pci_data);
 	
-	
+
 	// D_LCK bit is 4
-	pci_data = pci_data >> 4;
-	//for d_open flag
-	//pci_data = pci_data >> 6;
-	pci_data = pci_data & 0x1;
-	printk(KERN_INFO "D_LCK flag is set to %x.\n", pci_data);
+	// pci_data = pci_data >> 4;
+	//D_OPEN bit is 6
+	// pci_data = pci_data >> 6;
+	printk(KERN_INFO "D_LCK flag is set to %x.\n", (pci_data >> 4) & 1);
+	printk(KERN_INFO "D_OPEN flag is set to %x.\n", (pci_data >> 6) & 1);
 
 	//cleanup after use
 	pci_dev_put(dev);
@@ -52,4 +52,4 @@ module_exit(my_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Shubham Dubey <shubham0d@protonmail.coms>");
-MODULE_DESCRIPTION("D_LCK bit check");
+MODULE_DESCRIPTION("SMRAM lock check");
