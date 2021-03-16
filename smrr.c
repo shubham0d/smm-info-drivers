@@ -27,10 +27,10 @@ static int my_init(void)
 	// bit 11 SMRR supported
     smrr_support = (mtrr_cap >> 11) & 0x1;
     printk(KERN_INFO "SMRR support is %x.\n", smrr_support);
-    // check MTRRs value
+    // check SMRRs value
     rdmsrl(IA32_SMRR_PHYBASE, smrr_base);
 	rdmsrl(IA32_SMRR_PHYMASK, smrr_mask);
-    printk(KERN_INFO "SMRR base is %llx.\n", smrr_base);
+    printk(KERN_INFO "SMRR base is %llx.\n", (smrr_base >> 8) << 8);
     printk(KERN_INFO "SMRR mask is %llx.\n", smrr_mask);
 
 	
@@ -52,4 +52,4 @@ module_exit(my_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Shubham Dubey <shubham0d@protonmail.coms>");
-MODULE_DESCRIPTION("SMRR details");
+MODULE_DESCRIPTION("Check SMRR");
