@@ -1,5 +1,5 @@
 # smm-info-drivers
-Sample drivers to retrieve SMM related information. <br/>
+Sample linux modules to retrieve SMM related information. <br/>
 Used for blog: https://nixhacker.com/digging-into-smm/ <br/>
 <br/>
 **Files Description**
